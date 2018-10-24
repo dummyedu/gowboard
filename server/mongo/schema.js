@@ -28,6 +28,8 @@ BoardSchema.index({ 'feature.doomSkull': 1 }, { unique: false });
 BoardSchema.index({ 'feature.nextChain4': 1 }, { unique: false });
 BoardSchema.index({ 'feature.chain4Choice': 1 }, { unique: false });
 BoardSchema.index({ 'feature.maxGems': 1 }, { unique: false });
+BoardSchema.index({ 'feature.process': 1 }, { unique: false });
+
 
 module.exports = {
   BoardSchema,
