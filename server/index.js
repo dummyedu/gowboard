@@ -2,17 +2,17 @@
 require('dotenv').config();
 
 const Koa = require('koa');
+const koaBody = require('koa-bodyparser');
 const cors = require('@koa/cors');
 const http = require('http');
-const https = require('https');
 const { up } = require('./mongo/base');
+const indexRoute = require('./routes');
 
 const app = new Koa();
-app.use(cors());
-
-app.use(async ctx => {
-  ctx.body = 'Server is ready';
-});
+app
+  .use(cors())
+  .use(koaBody())
+  .use(indexRoute.routes());
 
 function listeningReporter () {
   const { address, port } = this.address();
@@ -21,15 +21,13 @@ function listeningReporter () {
 }
 
 app.on('error', err => {
-  console.log.error('server error', err)
+  console.error('server error', err)
 });
 
 up()
   .then(() => {
     http.createServer(app.callback())
     .listen(process.env.HTTP_PORT, 'localhost', listeningReporter)
-    https.createServer(app.callback())
-      .listen(process.env.HTTPS_PORT, 'localhost', listeningReporter)
   })
   .catch(e => {
     console.log(e);
