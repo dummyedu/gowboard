@@ -1,0 +1,3 @@
+[submodule "gow/reference"]
+	path = gow/reference
+	url = git@bitbucket.org:dummyedu/gow.git

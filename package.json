@@ -1,0 +1,32 @@
+{
+  "name": "gowboard",
+  "version": "1.0.0",
+  "description": "GOWBoard is tutorial website for gems of war plays.",
+  "main": "index.js",
+  "directories": {
+    "doc": "doc"
+  },
+  "scripts": {
+    "start": "cp ./dev_env ./.env && node ./server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dummyedu/gowboard.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dummyedu/gowboard/issues"
+  },
+  "homepage": "https://github.com/dummyedu/gowboard#readme",
+  "devDependencies": {
+    "webpack": "^4.22.0",
+    "webpack-dev-server": "^3.1.10"
+  },
+  "dependencies": {
+    "@koa/cors": "^2.2.2",
+    "dotenv": "^6.1.0",
+    "koa": "^2.6.1",
+    "mongoose": "^5.3.6"
+  }
+}
