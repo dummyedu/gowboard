@@ -17,7 +17,13 @@ const count = program.count || 1;
 
 const makeOneBoard = async () => {
   const board = makeRandomBoard();
+  if (program.dump) {
+    dumpArray(0, board);
+  }
   const feature = collectBaseFeature(board);
+  if (program.dump) {
+    console.log(feature);
+  }
   await addOrInsertBoard(board, feature);
   return board;
 };
@@ -25,12 +31,13 @@ const makeOneBoard = async () => {
 const run = async () => {
   await db.up();
   for (let i = 0; i < count; i++) {
-    const board = await makeOneBoard();
-    if (program.dump) {
-      dumpArray(0, board);
-    }
+    await makeOneBoard();
   }
   process.exit(0);
 };
 
-run();
+run()
+  .catch((e) => {
+    console.log(e);
+    process.exit(1);
+  })
