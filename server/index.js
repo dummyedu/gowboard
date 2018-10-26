@@ -39,7 +39,7 @@ app.on('error', err => {
 up()
   .then(() => {
     http.createServer(app.callback())
-    .listen(process.env.HTTP_PORT, 'localhost', listeningReporter)
+    .listen(process.env.HTTP_PORT, null, listeningReporter)
   })
   .catch(e => {
     console.log(e);
