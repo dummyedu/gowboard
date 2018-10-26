@@ -3,15 +3,15 @@
 const Router = require('koa-router');
 const questionImpl = require('../question');
 
-const getQuestion = (ctx) => {
+const getQuestion = async (ctx) => {
   const type = ctx.params.type;
   // const data = ctx.request.body;
-  const question = questionImpl.getQuestion(type);
+  const question = await questionImpl.getQuestion(type);
   ctx.body = question;
 };
 
-const getRandomQuestion = (ctx) => {
-  const question = questionImpl.getRandomQuestion();
+const getRandomQuestion = async (ctx) => {
+  const question = await questionImpl.getRandomQuestion();
   ctx.body = question;
 };
 

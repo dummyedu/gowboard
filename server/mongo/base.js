@@ -22,6 +22,7 @@ const up = () => {
   if (connecting) {
     return;
   }
+  mongoose.set('useFindAndModify', false);
   connecting = true;
   return assureRootDB()
     .then((info) => {

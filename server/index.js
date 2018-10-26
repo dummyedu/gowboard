@@ -9,6 +9,18 @@ const { up } = require('./mongo/base');
 const indexRoute = require('./routes');
 
 const app = new Koa();
+
+app.use(async (ctx, next) => {
+  try {
+    await next();
+  } catch (err) {
+    ctx.throw(400, err);
+    // ctx.status = err.status || 500;
+    // ctx.body = err.message;
+    // ctx.app.emit('error', err, ctx);
+  }
+});
+
 app
   .use(cors())
   .use(koaBody())

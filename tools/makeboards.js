@@ -24,8 +24,10 @@ const makeOneBoard = async () => {
   if (program.dump) {
     console.log(feature);
   }
-  await addOrInsertBoard(board, feature);
-  return board;
+  const insertBoard = await addOrInsertBoard(board, feature);
+  if (program.dump) {
+    console.log(insertBoard);
+  }
 };
 
 const run = async () => {
