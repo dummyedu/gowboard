@@ -2,7 +2,7 @@ const _ = require('lodash');
 
 const {
   makeRandomBoard, dumpArray,
-  predictBoard,
+  predictBoard, makePriorityTable,
 } = require('../../gow');
 
 const getGemCount = (board, type) => {
@@ -13,7 +13,7 @@ const getGemCount = (board, type) => {
   return ret;
 }
 
-const getGemsInfo = (step) => {
+const getGemsInfoFromStep = (step) => {
   let gemsCount = 0;
   let manaCount = 0;
   let depth = 0;
@@ -88,7 +88,8 @@ const collectBaseFeature = (board) => {
   feature.chain4MinDepth = 10;
   feature.chain4MaxDepth = -10;
   steps.forEach(step => {
-    const info = getGemsInfo(step);
+    const info = getGemsInfoFromStep(step);
+    step._info = info;
     if (step.fiveChain) {
       feature.chain5 = true;
     }
@@ -101,11 +102,26 @@ const collectBaseFeature = (board) => {
     feature.maxGems = Math.max(feature.maxGems, info.gemsCount);
     feature.maxMana = Math.max(feature.maxMana, info.manaCount);
   });
+  feature.maxSwaps = steps.length;
+  let maxGemsCount = 0;
+  let maxManaCount = 0;
+  steps.forEach(step => {
+    if (step._info.gemsCount === feature.maxGems) {
+      maxGemsCount++;
+    }
+    if (step._info.manaCount === feature.maxMana) {
+      maxManaCount++;
+    }
+  });
+  feature.maxGemsPossible = maxGemsCount === 1;
+  feature.maxManaPossible = maxManaCount === 1;
   return feature;
 };
 
 module.exports = {
   makeRandomBoard,
   collectBaseFeature,
+  getGemsInfoFromStep,
   dumpArray,
+  makePriorityTable,
 }

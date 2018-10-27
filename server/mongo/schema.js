@@ -31,6 +31,9 @@ BoardSchema.index({ 'feature.chain4Choice': 1 }, { unique: false });
 BoardSchema.index({ 'feature.maxGems': 1 }, { unique: false });
 BoardSchema.index({ 'feature.maxMana': 1 }, { unique: false });
 BoardSchema.index({ 'feature.process': 1 }, { unique: false });
+BoardSchema.index({ 'feature.maxGemsPossible': 1 }, { unique: false });
+BoardSchema.index({ 'feature.maxManaPossible': 1 }, { unique: false });
+BoardSchema.index({ 'feature.maxSwaps': 1 }, { unique: false });
 
 
 module.exports = {
