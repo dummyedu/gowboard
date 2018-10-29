@@ -15,6 +15,8 @@ program
   .option('--step <number>', 'chain4 step possibility')
   .parse(process.argv);
 
+const time = new Date();
+
 const count = program.count || 1;
 const skullCount = program.skull == null ? 4 : program.skull;
 const step = program.step == null ? -1 : parseInt(program.step);
@@ -25,7 +27,7 @@ let caseAdded = 0;
 const addCase = () => {
   caseAdded++;
   if (caseAdded % 1000 === 0) {
-    console.log(`${caseAdded} cases added`);
+    console.log(`${caseAdded} cases added, time spent ${(new Date() - time) / 1000}`);
   }
 }
 

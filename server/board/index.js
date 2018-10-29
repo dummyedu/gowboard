@@ -87,6 +87,9 @@ const collectBaseFeature = (board) => {
   feature.maxGems = 0;
   feature.chain4MinDepth = 10;
   feature.chain4MaxDepth = -10;
+  feature.maxStep2Swaps = 0;
+  feature.maxStep3Swaps = 0;
+  feature.matchCountBeforeChain = 0;
   steps.forEach(step => {
     const info = getGemsInfoFromStep(step);
     step._info = info;
@@ -101,7 +104,14 @@ const collectBaseFeature = (board) => {
     }
     feature.maxGems = Math.max(feature.maxGems, info.gemsCount);
     feature.maxMana = Math.max(feature.maxMana, info.manaCount);
+    if (info.depth >= 3) {
+      feature.maxStep3Swaps++;
+    }
+    if (info.depth >= 2) {
+      feature.maxStep2Swaps++;
+    }
   });
+
   feature.maxSwaps = steps.length;
   let maxGemsCount = 0;
   let maxManaCount = 0;
