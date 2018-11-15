@@ -19,10 +19,6 @@
     "url": "https://github.com/dummyedu/gowboard/issues"
   },
   "homepage": "https://github.com/dummyedu/gowboard#readme",
-  "devDependencies": {
-    "webpack": "^4.22.0",
-    "webpack-dev-server": "^3.1.10"
-  },
   "dependencies": {
     "@koa/cors": "^2.2.2",
     "canvas": "^2.1.0",

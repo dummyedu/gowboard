@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css?family=Permanent+Marker');
+
+#FancyFont1 {
+	color: #000000;
+	font-family: 'Permanent Marker', cursive;
+	font-size: 25px;
+	font-weight: normal;
+	line-height: 30px;
+	margin: 10px 0 20px;
+	text-shadow: 2px 2px 0 #000;
+	margin: 10px 0 24px;
+	text-align: center;
+}
+
+.greenButton1 { 
+    text-align:center;
+	font-family: Cabin, Georgia, serif;
+	font-size: 12px;
+    font-weight: 600;
+	font-style: normal;
+	color: white;
+    background:#07422f;
+    width: 100px;
+    height: 35px;
+	line-height: 35px;
+	vertical-align: middle;
+	border-radius:15px;
+}
+
+.br2 { 
+   display: block;
+   margin: 2px 0;
+}
+
+.br5 { 
+   display: block;
+   margin: 5px 0;
+}
+
+#tableBanner1 {
+	border-radius: 8px; 
+	border: 2px solid #07422f;
+	width: 120;
+	padding: 1;
+}
+
+#tableBanner2 {
+	border-radius: 8px; 
+	border: 2px solid #000000;
+	padding: 1;
+}
+
+#shadowBox {
+    border: 1px solid;
+    padding: 10px;
+    box-shadow: 5px 10px 8px 10px #888888;
+}

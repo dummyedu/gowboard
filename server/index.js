@@ -37,7 +37,7 @@ app.on('error', err => {
   console.error('server error', err)
 });
 
-app.use(serve(path.resolve(__dirname, '../client/v1')));
+app.use(serve(path.resolve(__dirname, '../client/v2/build')));
 
 up()
   .then(() => {
