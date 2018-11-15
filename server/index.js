@@ -1,7 +1,8 @@
 
 require('dotenv').config();
-
+const path = require('path');
 const Koa = require('koa');
+const serve = require('koa-static');
 const koaBody = require('koa-bodyparser');
 const cors = require('@koa/cors');
 const http = require('http');
@@ -35,6 +36,8 @@ function listeningReporter () {
 app.on('error', err => {
   console.error('server error', err)
 });
+
+app.use(serve(path.resolve(__dirname, '../client/v1')));
 
 up()
   .then(() => {
