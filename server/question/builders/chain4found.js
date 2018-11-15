@@ -1,10 +1,10 @@
 const _ = require('lodash');
 
-const getCondition = () => {
-  const difficulty = parseInt(Math.random() * 4, 10);
+const getCondition = ({ difficulty }) => {
+  const d = (difficulty == null) ? parseInt(Math.random() * 4, 10) : difficulty;
   return {
     'feature.chain4': true,
-    'feature.chain4MinDepth': difficulty,
+    'feature.chain4MinDepth': d,
     'feature.chain4Choice': 1,
   };
 };
@@ -29,6 +29,6 @@ const build = (boardData, steps) => {
 };
 
 module.exports = {
-getCondition,
-build,
+  getCondition,
+  build,
 };

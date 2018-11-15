@@ -1,3 +1,4 @@
+const _ = require('lodash');
 require('dotenv').config();
 const program = require('commander');
 
@@ -13,6 +14,8 @@ program
   .option('-d, --dump', 'dump generated board')
   .option('-s, --skull <number>', 'skull count')
   .option('--step <number>', 'chain4 step possibility')
+  .option('-b, --bias <number>', 'the priority is biased')
+  .option('-r, --random', 'random the input')
   .parse(process.argv);
 
 const time = new Date();
@@ -31,8 +34,36 @@ const addCase = () => {
   }
 }
 
+let priorityTable = null;
+
+const randomInt = v => parseInt(Math.random() * v, 10);
+
+if (program.bias) {
+  let arr = [];
+  for (let i = 0; i < 2; i++) {
+    arr.push(13 * program.bias);
+    arr.push(13);
+    arr.push(13);
+  }
+  arr = _.shuffle(arr);
+  arr.push(7);
+  arr.push(0);
+  arr.push(skullCount);
+  priorityTable = makePriorityTable(arr);
+} else if (program.random) {
+  const arr = [];
+  for (let i = 0; i < 6; i++) {
+    arr.push(randomInt(30));
+  }
+  arr.push(7);
+  arr.push(0);
+  arr.push(randomInt(skullCount * 2));
+  priorityTable = makePriorityTable(arr);
+} else {
+  priorityTable = makePriorityTable([13, 13, 13, 13, 13, 13, 7, 0, skullCount]);
+}
+
 const makeOneBoard = async () => {
-  const priorityTable = makePriorityTable([13, 13, 13, 13, 13, 13, 7, 0, skullCount])
   const board = makeRandomBoard(priorityTable);
 
   const feature = collectBaseFeature(board);

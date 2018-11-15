@@ -25,14 +25,7 @@ const updateBoard = (board, feature) => {
   ).exec();
 };
 
-const queryBoard = async (condition, count = 1, isRandom = false) => {
-  let start = 0;
-  if (isRandom) {
-    const totalCount = await getBoard().countDocuments(condition).exec();
-    if (totalCount > count) {
-      start = parseInt(Math.random() * (totalCount - count), 10);
-    }
-  }
+const queryBoard = async (condition, count = 1, start = 0) => {
   const boards = await getBoard().find(condition)
     .skip(start)
     .limit(count)
@@ -46,8 +39,20 @@ const queryBoard = async (condition, count = 1, isRandom = false) => {
   })
 };
 
-const queryRandomBoard = (condition, count) => {
-  return queryBoard(condition, count, true);
+const queryBoardCount = async (condition) => {
+  const count = await getBoard().find(condition)
+    .count()
+    .exec();
+  return count;
+}
+
+const queryRandomBoard = async (condition, count) => {
+  let start = 0;
+  const totalCount = await getBoard().countDocuments(condition).exec();
+  if (totalCount > count) {
+    start = parseInt(Math.random() * (totalCount - count), 10);
+  }
+  return queryBoard(condition, count, start);
 }
 
 module.exports = {
@@ -55,4 +60,5 @@ module.exports = {
   updateBoard,
   queryBoard,
   queryRandomBoard,
+  queryBoardCount,
 };

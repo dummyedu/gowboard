@@ -10,7 +10,7 @@ const getQuestion = async (type) => {
     throw new Error(`${type} is unknown question type`);
   }
   const questionBuilder = QuestionBuilder(type);
-  const condition = questionBuilder.getCondition();
+  const condition = questionBuilder.getCondition({});
   const data = (await queryRandomBoard(condition, 1))[0];
   const steps = predictBoard(data.board);
   steps.forEach(s => {
@@ -26,6 +26,15 @@ const getRandomQuestion = () => {
   return getQuestion(type);
 };
 
+const getQuestionCondition = (type, difficulty) => {
+  if (type < 0 || type >= QuestionType.Count) {
+    throw new Error(`${type} is unknown question type`);
+  }
+  const questionBuilder = QuestionBuilder(type);
+  const condition = questionBuilder.getCondition({ difficulty });
+  return condition;
+}
+
 module.exports = {
-  getQuestion, getRandomQuestion,
+  getQuestion, getRandomQuestion, getQuestionCondition,
 };
