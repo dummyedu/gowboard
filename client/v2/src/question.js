@@ -12,11 +12,17 @@ const Span2 = styled.span`
 	text-align: center;
 `;
 
+const ShadowDiv = styled.div`
+  border: 1px solid;
+  padding: 10px;
+  box-shadow: 5px 10px 8px 10px #888888;
+`
+
 class Question extends Component {
   render() {
     return (
       <table width='600'><tr><td>
-      <div id='shadowBox'>
+      <ShadowDiv>
         <center>
           <table cellpadding='5'>
             <tr>
@@ -35,7 +41,7 @@ class Question extends Component {
             </tr>
           </table>
         </center>
-      </div>
+      </ShadowDiv>
       <br />
     </td></tr></table>
     );
