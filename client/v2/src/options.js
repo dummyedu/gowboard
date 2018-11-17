@@ -27,12 +27,13 @@ const GreenButton = styled.div`
   &:hover {
     background: #128761;
   }
+  margin-bottom: 15px;
 `;
 
-const Br2 = styled.br`
-  display: block;
-  margin: 2px 0;
-`
+// const Br2 = styled.br`
+//   display: block;
+//   margin: 2px 0;
+// `
 
 const Br5 = styled.br`
   display: block;
@@ -48,24 +49,32 @@ const TableBanner1 = styled.table`
 
 class Options extends Component {
   render() {
+    const fromX = (x) => {
+      return String.fromCharCode('A'.charCodeAt(0) + x);
+    };
+    const fromY = (y) => {
+      return String.fromCharCode('8'.charCodeAt(0) - y);
+    };
+    const swapString = (op) => {
+      return `${fromX(op.x1)}${fromY(op.y1)} - ${fromX(op.x2)}${fromY(op.y2)}`
+    }
+    const { question } = this.props;
     return (
       <td>
         <TableBanner1><tr><td>
           <center>
             <Span3><u>Move options:</u></Span3>
             <Br5 />
-            <GreenButton>6B -> 6C</GreenButton>
-            <Br2 />
-            <GreenButton>6B -> 6C</GreenButton>
-            <Br2 />
-            <GreenButton>6B -> 6C</GreenButton>
-            <Br2 />
-            <GreenButton>6B -> 6C</GreenButton>
-            <Br2 />
+            {
+              question.options.map((op, i) => {
+                const desc = swapString(op);
+                return <GreenButton key={i} onClick={this.props.onSelect.bind(null, i)}>{desc}</GreenButton>
+              })
+            }
           </center>
         </td></tr></TableBanner1>
         <Br5 />
-        <GreenButton>Show answer</GreenButton>
+        <GreenButton onClick={() => this.props.onSelect(question.answer)}>Show answer</GreenButton>
       </td>
     );
   }

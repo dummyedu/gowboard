@@ -40,6 +40,10 @@ class App extends Component {
     this.loadNextQuestion();
   }
 
+  onSelectAnswer(selection) {
+    this.setState({ selection });
+  }
+
   render() {
     const question = this.state.question;
     return (
@@ -56,7 +60,10 @@ class App extends Component {
               <Question board={question.board}/>
               <table cellpadding='20'>
                 <tr valign='top'>
-                  <Options question={question.questions}/>
+                  <Options
+                    question={question.questions}
+                    onSelect={this.onSelectAnswer.bind(this)}
+                  />
                   <Answer
                     correct={question.questions.answer === this.state.selection}
                     board={question.board}
