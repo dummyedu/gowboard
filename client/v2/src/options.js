@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 import styled from 'styled-components';
 
+import { swapString } from './utils';
+
 const Span3 = styled.span`
   font-size: 15px;
   color: #000000;
@@ -49,15 +51,6 @@ const TableBanner1 = styled.table`
 
 class Options extends Component {
   render() {
-    const fromX = (x) => {
-      return String.fromCharCode('A'.charCodeAt(0) + x);
-    };
-    const fromY = (y) => {
-      return String.fromCharCode('8'.charCodeAt(0) - y);
-    };
-    const swapString = (op) => {
-      return `${fromX(op.x1)}${fromY(op.y1)} - ${fromX(op.x2)}${fromY(op.y2)}`
-    }
     const { question } = this.props;
     return (
       <td>

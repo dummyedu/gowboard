@@ -19,6 +19,7 @@ const ShadowDiv = styled.div`
 `
 
 class Question extends Component {
+  
   render() {
     return (
       <table width='600'><tr><td>
@@ -36,7 +37,7 @@ class Question extends Component {
                 <div>the best move from the move options below.</div>
               </td>
               <td>
-                <BoardCanvas blockSize={30} board={this.props.board} />
+                <BoardCanvas blockSize={40} board={this.props.board} />
               </td>
             </tr>
           </table>
