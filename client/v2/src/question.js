@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-
 import styled from 'styled-components';
+
+import BoardCanvas from './canvas/boardcanvas';
 
 const Span2 = styled.span`
   font-size: 25px;
@@ -25,12 +26,11 @@ class Question extends Component {
                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </Span2>
                 <br /><br />
-                Based on the board layout below please select
-                <br />
-                the best move from the move options below.
+                <div>Based on the board layout below please select</div>
+                <div>the best move from the move options below.</div>
               </td>
               <td>
-                <img src='pics\0.png' />
+                <BoardCanvas blockSize={30} board={this.props.board} />
               </td>
             </tr>
           </table>
