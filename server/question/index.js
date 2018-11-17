@@ -5,12 +5,12 @@ const QuestionBuilder = require('./questionbuilder');
 const { predictBoard } = require('../../gow');
 const { getGemsInfoFromStep } = require('../board');
 
-const getQuestion = async (type) => {
+const getQuestion = async (type, params) => {
   if (type < 0 || type >= QuestionType.Count) {
     throw new Error(`${type} is unknown question type`);
   }
   const questionBuilder = QuestionBuilder(type);
-  const condition = questionBuilder.getCondition({});
+  const condition = questionBuilder.getCondition(params);
   const data = (await queryRandomBoard(condition, 1))[0];
   const steps = predictBoard(data.board);
   steps.forEach(s => {
@@ -21,9 +21,9 @@ const getQuestion = async (type) => {
   return data;
 };
 
-const getRandomQuestion = () => {
+const getRandomQuestion = (params) => {
   const type = parseInt(Math.random() * QuestionType.Count, 10);
-  return getQuestion(type);
+  return getQuestion(type, params);
 };
 
 const getQuestionCondition = (type, difficulty) => {

@@ -5,8 +5,8 @@ const questionImpl = require('../question');
 
 const getQuestion = async (ctx) => {
   const type = ctx.params.type;
-  // const data = ctx.request.body;
-  const question = await questionImpl.getQuestion(type);
+  const info = ctx.request.body;
+  const question = await questionImpl.getQuestion(type, info);
   ctx.body = question;
 };
 
@@ -18,7 +18,7 @@ const getRandomQuestion = async (ctx) => {
 const router = Router();
 
 const routers = router
-  .get('/random', getRandomQuestion)
-  .get('/:type', getQuestion)
+  .post('/random', getRandomQuestion)
+  .post('/:type', getQuestion)
 
 module.exports = routers;

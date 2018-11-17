@@ -68,11 +68,13 @@ const makeOneBoard = async () => {
 
   const feature = collectBaseFeature(board);
   if (step >= 0) {
-    if (!feature.chain4) {
-      return;
-    }
-    if (feature.chain4MinDepth < step) {
-      return;
+    if (feature.chainMaxDepth < 8) {
+      if (!feature.chain4) {
+        return;
+      }
+      if (feature.chain4MinDepth < step) {
+        return;
+      }
     }
   }
   addCase();

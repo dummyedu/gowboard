@@ -1,5 +1,6 @@
 const fetch = require('isomorphic-fetch');
 const urljoin = require('url-join');
+const QuestionType = require('./questiontype');
 
 let serverAddr = 'http://localhost:3100';
 const getServerAddr = () => serverAddr;
@@ -67,15 +68,25 @@ const get = (url, params = {}, data) => {
 const jsonPost = (...args) => {
   return post(...args)
     .then(parseJSON)
-    .then(checkJson);
 };
 
 const jsonGet = (...args) => {
   return get(...args)
     .then(parseJSON)
-    .then(checkJson);
 };
+
+if (process.env.NODE_ENV === 'production') {
+  setServerAddr('');
+} else {
+  setServerAddr('http://localhost:3100');
+}
+
+const getQuestionWithType = (type, difficulty) => 
+  jsonPost(`question/${type}`, {}, { difficulty });
+
+const getQuestion = (difficulty) => getQuestionWithType(QuestionType.Chain4Found, difficulty);
 
 module.exports = {
   get, post, jsonGet, jsonPost, setServerAddr,
+  getQuestion,
 }
