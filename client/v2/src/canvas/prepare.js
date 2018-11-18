@@ -31,8 +31,22 @@ const prepareImages = () => {
 
 const { backGroundImage, gameImages } = prepareImages();
 
+const isImagePrepared = () => {
+  if (!backGroundImage.complete) {
+    return false;
+  }
+  for (let i = 0; i < gameImages.length; i++) {
+    const img = gameImages[i];
+    if (img && !img.complete) {
+      return false;
+    }
+  }
+  return true;
+}
+
 const renderToCanvas = renderToCanvasGenerator(backGroundImage, gameImages);
 
 export {
   renderToCanvas,
+  isImagePrepared
 }

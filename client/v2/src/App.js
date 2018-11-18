@@ -6,6 +6,7 @@ import Options from './options';
 import Answer from './answer';
 import Loading from './loading';
 import { getQuestion } from './request';
+import { isImagePrepared } from './canvas/prepare';
 
 const Span1 = styled.span`
   font-size: 55px;
@@ -19,15 +20,15 @@ const Span1 = styled.span`
 class App extends Component {
   constructor(props, context) {
     super(props, context);
-    this.state = { loading: false, selection: -1 };
+    this.state = { loading: false, selection: -1, complete: false };
   }
 
-  loadNextQuestion() {
+  loadNextQuestion(difficulty) {
     if (this.state.loading) {
       return;
     }
     this.setState({ loading: true });
-    getQuestion(2)
+    getQuestion(difficulty)
       .then((question) => {
         this.setState({ error: null, loading: false, question });
       })
@@ -37,7 +38,14 @@ class App extends Component {
   }
 
   componentWillMount() {
-    this.loadNextQuestion();
+    this.loadNextQuestion(2);
+    let id = 0;
+    id = setInterval(() => {
+      if (isImagePrepared()) {
+        clearInterval(id);
+        this.setState({ complete: true });
+      }
+    }, 100);
   }
 
   onSelectAnswer(selection) {
@@ -56,7 +64,10 @@ class App extends Component {
           <br /><br /><br /><br />
 
           {
-            (this.state.loading || !question) ? <Loading /> : (<div>
+            (this.state.loading || !question || !this.state.complete) ? <Loading /> : (<div>
+              <button onClick={() => this.loadNextQuestion(1)}>Easy</button>
+              <button onClick={() => this.loadNextQuestion(3)}>Normal</button>
+              <button onClick={() => this.loadNextQuestion(5)}>Hard</button>
               <Question board={question.board}/>
               <table cellpadding='20'>
                 <tr valign='top'>
