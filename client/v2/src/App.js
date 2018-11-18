@@ -27,7 +27,7 @@ class App extends Component {
     if (this.state.loading) {
       return;
     }
-    this.setState({ loading: true });
+    this.setState({ loading: true, selection: -1 });
     getQuestion(difficulty)
       .then((question) => {
         this.setState({ error: null, loading: false, question });
