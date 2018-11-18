@@ -10,23 +10,32 @@ class BoardCanvas extends Component {
   renderToCanvas() {
     if (this.canvas !== null && this.props.board !== this.renderedBoard
       && this.props.board !== null) {
-        renderToCanvas(this.canvas, this.props.board, this.props.blockSize);
+        renderToCanvas(this.canvas, this.props.board, this.props.blockSize, true);
         this.renderedBoard = this.props.board;
       }
   }
 
+  getCanvasSize() {
+    return {
+      width: this.props.blockSize * 9,
+      height: this.props.blockSize * 9,
+    }
+  }
+
   componentDidMount() {
-    this.canvas.width = this.props.blockSize * 8;
-    this.canvas.height = this.props.blockSize * 8;
+    const size = this.getCanvasSize();
+    this.canvas.width = size.width;
+    this.canvas.height = size.height;
     this.renderToCanvas();
   }
 
   render() {
     this.renderToCanvas();
+    const size = this.getCanvasSize();
     return (<canvas ref={c => { this.canvas = c; }} style={{
       display: (this.props.board !== null) ? 'inline' : 'none',
-      width: this.props.blockSize * 8,
-      height: this.props.blockSize * 8,
+      width: size.width,
+      height: size.height,
       marginTop: 10,
       marginBottom: 10,
       marginLeft: 10,

@@ -9,5 +9,5 @@ const swapString = (op) => {
 }
 
 export {
-  swapString
+  swapString, fromX, fromY,
 }
