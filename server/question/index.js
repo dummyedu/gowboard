@@ -1,5 +1,5 @@
 
-const { queryRandomBoard } = require('../mongo');
+const { queryRandomBoard, queryBoard } = require('../mongo');
 const { QuestionType } = require('../../common');
 const QuestionBuilder = require('./questionbuilder');
 const { predictBoard } = require('../../gow');
@@ -10,8 +10,12 @@ const getQuestion = async (type, params) => {
     throw new Error(`${type} is unknown question type`);
   }
   const questionBuilder = QuestionBuilder(type);
-  const condition = questionBuilder.getCondition(params);
-  const data = (await queryRandomBoard(condition, 1))[0];
+  const condition = params.board ? 
+    {
+      board: JSON.stringify(params.board)
+    } : questionBuilder.getCondition(params);
+  const queryMethod = params.board ? queryBoard : queryRandomBoard;
+  const data = (await queryMethod(condition, 1))[0];
   const steps = predictBoard(data.board);
   steps.forEach(s => {
     s.gemsInfo = getGemsInfoFromStep(s);

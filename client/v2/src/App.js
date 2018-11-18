@@ -5,8 +5,10 @@ import Question from './question';
 import Options from './options';
 import Answer from './answer';
 import Loading from './loading';
-import { getQuestion } from './request';
+import { getQuestion, getQuestionWithBoard } from './request';
 import { isImagePrepared } from './canvas/prepare';
+import Clipboard from 'react-clipboard.js';
+import clippyImg from './assets/clippy.png';
 
 const Span1 = styled.span`
   font-size: 55px;
@@ -17,10 +19,25 @@ const Span1 = styled.span`
 	text-align: center;
 `;
 
+const ClippyImage = styled.img`
+  width: 15px;
+  height: 15px;
+`;
+
+const ClippyInput = styled.input`
+  width: 800px;
+`
+
 class App extends Component {
   constructor(props, context) {
     super(props, context);
-    this.state = { loading: false, selection: -1, complete: false };
+    this.state = { loading: false, selection: -1, complete: false, sharing: false };
+  }
+
+  shareBoard() {
+    const url = `${window.location.origin}/index.html?board=${this.state.question.board.join('')}`;
+    this.setState({ sharing: url });
+    console.log(url);
   }
 
   loadNextQuestion(difficulty) {
@@ -28,7 +45,8 @@ class App extends Component {
       return;
     }
     this.setState({ loading: true, selection: -1 });
-    getQuestion(difficulty)
+    const promise = this.props.shareBoard ? getQuestionWithBoard(this.props.shareBoard) : getQuestion(difficulty);
+    promise
       .then((question) => {
         this.setState({ error: null, loading: false, question });
       })
@@ -62,14 +80,25 @@ class App extends Component {
             <u>Gems of War trainer</u>
           </Span1>
           <br /><br /><br /><br />
-
           {
             (this.state.loading || !question || !this.state.complete) ? <Loading /> : (<div>
-              <button onClick={() => this.loadNextQuestion(1)}>Easy</button>
-              <button onClick={() => this.loadNextQuestion(3)}>Normal</button>
-              <button onClick={() => this.loadNextQuestion(5)}>Hard</button>
-              <button onClick={() => this.loadNextQuestion(10)}>Doom</button>
-              <button onClick={() => this.loadNextQuestion(20)}>Versatile</button>
+              {
+              this.props.shareBoard ? null : <div>
+                <button onClick={() => this.loadNextQuestion(1)}>Easy</button>
+                <button onClick={() => this.loadNextQuestion(3)}>Normal</button>
+                <button onClick={() => this.loadNextQuestion(5)}>Hard</button>
+                <button onClick={() => this.loadNextQuestion(10)}>Doom</button>
+                <button onClick={() => this.loadNextQuestion(20)}>Versatile</button>
+                {
+                  this.state.sharing ? (<div>
+                    <ClippyInput id="foo" value={this.state.sharing} />
+                    <Clipboard data-clipboard-text={this.state.sharing}>
+                      <ClippyImage src={clippyImg} alt="Copy to clipboard" />
+                    </Clipboard>
+                  </div>) : (<button onClick= {() => this.shareBoard()}>Share</button>)
+                }
+              </div>
+              }
               <Question board={question.board}/>
               <table cellpadding='20'>
                 <tr valign='top'>

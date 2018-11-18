@@ -86,7 +86,11 @@ const getQuestionWithType = (type, difficulty) =>
 
 const getQuestion = (difficulty) => getQuestionWithType(QuestionType.Chain4Found, difficulty);
 
+const getQuestionWithBoard = (board) => jsonPost(`question/${QuestionType.Chain4Found}`, { board });
+
+const getBoard = board => jsonPost(`answer/best`, { board });
+
 module.exports = {
   get, post, jsonGet, jsonPost, setServerAddr,
-  getQuestion,
+  getQuestion, getBoard, getQuestionWithBoard
 }
