@@ -82,7 +82,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 const getQuestionWithType = (type, difficulty) => 
-  jsonPost(`question/${type}`, {}, { difficulty });
+  jsonPost(`question/${type}`, { difficulty });
 
 const getQuestion = (difficulty) => getQuestionWithType(QuestionType.Chain4Found, difficulty);
 
