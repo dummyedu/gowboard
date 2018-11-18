@@ -2,6 +2,20 @@ const _ = require('lodash');
 
 const getCondition = ({ difficulty }) => {
   const d = (difficulty == null) ? parseInt(Math.random() * 4, 10) : difficulty;
+  if (difficulty === 10) {  // skull
+    return {
+      "feature.chain4Choice": 1,
+      "feature.doomSkull": { $gt: 7 },
+      "feature.chain4MinDepth": { $gt: 2 },
+    };
+  }
+  if (difficulty === 20) { // multi choice
+    return {
+      "feature.chain4Choice": 1,
+      "feature.maxStep2Swaps": { $gt: 6 },
+      "feature.chain4MinDepth": { $gt: 2 },
+    };
+  }
   return {
     'feature.chain4': true,
     'feature.chain4MinDepth': d,

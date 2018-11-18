@@ -68,6 +68,8 @@ class App extends Component {
               <button onClick={() => this.loadNextQuestion(1)}>Easy</button>
               <button onClick={() => this.loadNextQuestion(3)}>Normal</button>
               <button onClick={() => this.loadNextQuestion(5)}>Hard</button>
+              <button onClick={() => this.loadNextQuestion(10)}>Doom</button>
+              <button onClick={() => this.loadNextQuestion(20)}>Versatile</button>
               <Question board={question.board}/>
               <table cellpadding='20'>
                 <tr valign='top'>
