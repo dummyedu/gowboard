@@ -24,6 +24,14 @@ const ClippyImage = styled.img`
   height: 15px;
 `;
 
+const RightButton = styled.button`
+  float: right;
+`
+
+const RightDiv = styled.div`
+  text-align: right;
+`
+
 const ClippyInput = styled.input`
   width: 800px;
 `
@@ -88,14 +96,14 @@ class App extends Component {
                 <button onClick={() => this.loadNextQuestion(3)}>Normal</button>
                 <button onClick={() => this.loadNextQuestion(5)}>Hard</button>
                 <button onClick={() => this.loadNextQuestion(10)}>Doom</button>
-                <button onClick={() => this.loadNextQuestion(20)}>Versatile</button>
+                {/* <button onClick={() => this.loadNextQuestion(20)}>Versatile</button> */}
                 {
-                  this.state.sharing ? (<div>
+                  this.state.sharing ? (<RightDiv>
                     <ClippyInput id="foo" value={this.state.sharing} />
                     <Clipboard data-clipboard-text={this.state.sharing}>
                       <ClippyImage src={clippyImg} alt="Copy to clipboard" />
                     </Clipboard>
-                  </div>) : (<button onClick= {() => this.shareBoard()}>Share</button>)
+                  </RightDiv>) : (<RightButton onClick= {() => this.shareBoard()}>Share board</RightButton>)
                 }
               </div>
               }
