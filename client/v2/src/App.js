@@ -8,7 +8,6 @@ import Loading from './loading';
 import { getQuestion, getQuestionWithBoard } from './request';
 import { isImagePrepared } from './canvas/prepare';
 import Clipboard from 'react-clipboard.js';
-import clippyImg from './assets/clippy.png';
 
 const Span1 = styled.span`
   font-size: 55px;
@@ -33,7 +32,13 @@ const RightDiv = styled.div`
 `
 
 const ClippyInput = styled.input`
-  width: 800px;
+  width: 400px;
+`
+
+const ShareDiv = styled.div`
+  position: absolute;
+  right: 10px;
+  top: 0px;
 `
 
 class App extends Component {
@@ -92,19 +97,23 @@ class App extends Component {
             (this.state.loading || !question || !this.state.complete) ? <Loading /> : (<div>
               {
               this.props.shareBoard ? null : <div>
-                <button onClick={() => this.loadNextQuestion(1)}>Easy</button>
-                <button onClick={() => this.loadNextQuestion(3)}>Normal</button>
-                <button onClick={() => this.loadNextQuestion(5)}>Hard</button>
-                <button onClick={() => this.loadNextQuestion(10)}>Doom</button>
-                {/* <button onClick={() => this.loadNextQuestion(20)}>Versatile</button> */}
-                {
-                  this.state.sharing ? (<RightDiv>
-                    <ClippyInput id="foo" value={this.state.sharing} />
-                    <Clipboard data-clipboard-text={this.state.sharing}>
-                      <ClippyImage src={clippyImg} alt="Copy to clipboard" />
-                    </Clipboard>
-                  </RightDiv>) : (<RightButton onClick= {() => this.shareBoard()}>Share board</RightButton>)
-                }
+                <div style={{ position: 'relative' }}>
+                  <button onClick={() => this.loadNextQuestion(1)}>Easy</button>
+                  <button onClick={() => this.loadNextQuestion(3)}>Normal</button>
+                  <button onClick={() => this.loadNextQuestion(5)}>Hard</button>
+                  <button onClick={() => this.loadNextQuestion(10)}>Doom</button>
+                  <ShareDiv>
+                    {
+                      this.state.sharing ? (<RightDiv>
+                        <ClippyInput id="foo" value={this.state.sharing} />
+                        <Clipboard data-clipboard-text={this.state.sharing} style={{ backGround: 'none', border: 'none' }}>
+                          <button>Paste</button>
+                        </Clipboard>
+                        <button onClick={() => {this.setState({ sharing: null });}}>Close</button>
+                      </RightDiv>) : (<RightButton onClick= {() => this.shareBoard()}>Share board</RightButton>)
+                    }
+                  </ShareDiv>
+                </div>
               </div>
               }
               <Question board={question.board}/>

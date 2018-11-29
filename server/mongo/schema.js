@@ -38,7 +38,17 @@ BoardSchema.index({ 'feature.maxStep2Swaps': 1 }, { unique: false });
 BoardSchema.index({ 'feature.maxStep3Swaps': 1 }, { unique: false });
 BoardSchema.index({ 'feature.chainMaxDepth': 1 }, { unique: false });
 
+const StatsQuestionSchema = new mongoose.Schema({
+  type: mongoose.Schema.Types.Number,
+  difficulty: mongoose.Schema.Types.Number,
+  date: mongoose.Schema.Types.Date,
+  ip: mongoose.Schema.Types.String,
+  shared: mongoose.Schema.Types.String,
+});
+
+StatsQuestionSchema.index({ 'ip': 1 }, { unique: false });
 
 module.exports = {
   BoardSchema,
+  StatsQuestionSchema,
 };
