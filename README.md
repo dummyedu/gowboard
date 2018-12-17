@@ -8,5 +8,5 @@ The project is planned to be done. No content yet.
 
 ## Demo version
 
-The first demo version is here:  <http://23.226.136.196:3100>
+The first demo version is here:  <http://23.226.136.196>
 
