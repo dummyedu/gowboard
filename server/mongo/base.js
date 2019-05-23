@@ -5,6 +5,8 @@ const { BoardSchema, StatsQuestionSchema } = require('./schema');
 const dbName = process.env.DB_NAME;
 const gowAddress = `${process.env.MONGO_DB}/${dbName}`;
 
+console.log(gowAddress)
+
 const assureRootDB = () => {
   return mongoose.createConnection(gowAddress, {
     useNewUrlParser: true
