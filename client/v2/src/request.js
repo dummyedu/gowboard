@@ -76,7 +76,7 @@ const jsonGet = (...args) => {
 };
 
 if (process.env.NODE_ENV === 'production') {
-  setServerAddr('');
+  setServerAddr(process.env.REACT_APP_HOST || '');
 } else {
   setServerAddr('http://localhost:3100');
 }
