@@ -3,7 +3,7 @@ require('dotenv').config();
 const path = require('path');
 const Koa = require('koa');
 const serve = require('koa-static');
-const koaBody = require('koa-bodyparser');
+const koaBody = require('koa-body');
 const cors = require('@koa/cors');
 const http = require('http');
 const { up } = require('./mongo/base');
@@ -24,7 +24,13 @@ app.use(async (ctx, next) => {
 
 app
   .use(cors())
-  .use(koaBody())
+  .use(koaBody({
+    // formidable:{uploadDir: './uploads'},    //This is where the files would come
+    multipart: true,
+    urlencoded: true,
+    keepExtensions: true,
+    maxFileSize: 1 * 1024 * 1024,
+  }))
   .use(indexRoute.routes());
 
 function listeningReporter () {
