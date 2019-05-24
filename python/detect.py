@@ -23,7 +23,6 @@ def resizeImg(img, targetSize):
 for name in names:
   filePath = os.path.join(dir_path, "template/" + name)
   img = cv2.imread(filePath)
-  print img.shape
   # img = resizeImg(img, 42)
   templates.append(img)
 
@@ -79,7 +78,7 @@ def detect(imagePath):
   p = np.zeros(64).reshape(8, 8)
   for i, r in enumerate(results):
     for (x, y, v) in r['matches']:
-      index = (y / cell_size, x / cell_size)
+      index = ((int)(y / cell_size), (int)(x / cell_size))
       if v > p[index]:
         p[index] = v
         board[index] = i

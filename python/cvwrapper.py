@@ -18,7 +18,7 @@ def detectImage(target, template, options):
 
   minMatch = np.min(res)
   maxMatch = np.max(res)
-  print 'minMatch = ', minMatch, " maxMatch = ", maxMatch
+  print ('minMatch = ', minMatch, " maxMatch = ", maxMatch)
   threshold = max(maxMatch - 0.1, threshold)
   added = []
 
@@ -28,10 +28,10 @@ def detectImage(target, template, options):
   elif algo_type == 1:
     loc = np.where(res <= 1 - threshold)
 
-  print 'detectCount = ', len(loc[0])
+  print ('detectCount = ', len(loc[0]))
 
   if len(loc[0]) > 2000:
-    print 'detect too much, threshold or detectType is wrong.', threshold, detectType
+    print ('detect too much, threshold or detectType is wrong.', threshold, detectType)
     return {
       'width': w,
       'height': h,
