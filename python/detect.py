@@ -71,8 +71,6 @@ def detect(imagePath):
         yrange[1] = m[1]
   cell_size = min((xrange[1] - xrange[0]) / 7, (yrange[1] - yrange[0]) / 7) - 2
 
-  print xrange, yrange
-
   # 4. by the roi to make rough points for each pattern
   board = np.zeros(64).reshape(8, 8)
   p = np.zeros(64).reshape(8, 8)
